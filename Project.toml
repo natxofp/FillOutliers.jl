@@ -1,0 +1,13 @@
+name = "FillOutliers"
+uuid = "36498ab6-316f-4d40-82fe-0951719b46b4"
+authors = ["Ignasi Fernandez"]
+version = "1.0.0-DEV"
+
+[compat]
+julia = "1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
