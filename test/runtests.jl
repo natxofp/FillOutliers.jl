@@ -1,7 +1,7 @@
 using FillOutliers
 using Test
 
-@testset "Fill_outliers.jl" begin
+@testset "FillOutliers.jl" begin
     # Test data with missing and outlier values
     data = [1, 2, 100000, 4, 5, 7, 9, 15, NaN, 8, 9]
 
