@@ -12,7 +12,7 @@ Three different methods are implemented to find the outliers:
 - `move mean`: Outliers are those values that are 3 times the standard deviation, `std`, away from the moving mean. In that case the window size is `window` and needs to be provided as input.
 
 Example: 
-fill_outliers(data, method, window)
+filloutliers(data, method, window)
     data = [1, 2, 100000, 4, 5, 7, 9, 15, NaN, 8, 9]
     
     method = "mean"
