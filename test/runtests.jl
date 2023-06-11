@@ -14,6 +14,6 @@ using Test
     @test filloutliers(data, "quartiles") ≈ expected_quartiles
 
     # Test moving mean method
-    expected_moving_mean = [1.0, 2.0, 100000.0, 4.0, 5.0, 7.0, 9.0, 15.0, 11.5, 8.0, 9.0]
+    expected_moving_mean = [1.0, 2.0, 3.0, 4.0, 5.0, 7.0, 9.0, 15.0, 11.5, 8.0, 9.0]
     @test filloutliers(data, "moving_mean", 3) ≈ expected_moving_mean
 end
