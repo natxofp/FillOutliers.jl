@@ -5,7 +5,7 @@ using Statistics
 using DataFrames
 using StatsBase
 
-function filloutliers(data, method, window)
+function filloutliers(data, method, window=nothing)
     function detect_outliers(data, method, window)
         data = replace(data, NaN => missing)
         if method == "mean"
@@ -18,6 +18,10 @@ function filloutliers(data, method, window)
             iqr = q3 - q1
             return findall(x -> ismissing(x) || x < q1 - 1.5 * iqr || x > q3 + 1.5 * iqr, data)
         elseif method == "moving_mean"
+            # If no window provided, set a default value
+            if window === nothing
+                window = length(data) ÷ 10
+            end
             outliers = Bool[]
             for i in 1:length(data)
                 start_idx = max(1, i - window)
@@ -31,6 +35,7 @@ function filloutliers(data, method, window)
             error("Invalid method: $method")
         end
     end
+
 
     function interpolate_outliers(data, outlier_indices)
         sorted_outlier_indices = sort(outlier_indices)
