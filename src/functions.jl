@@ -1,19 +1,19 @@
 function detect_outliers(data, method, window)
-    data = replace(data, NaN => missing)
+
     if method == "mean"
         μ = mean(skipmissing(data))
         σ = std(skipmissing(data))
+        return findall(x -> ismissing(x) || abs(x - μ) > 3 * σ, data)
+    elseif method == "median"
+        μ = median(skipmissing(data))
+        σ = mad(skipmissing(data))
         return findall(x -> ismissing(x) || abs(x - μ) > 3 * σ, data)
     elseif method == "quartiles"
         q1 = quantile(skipmissing(data), 0.25)
         q3 = quantile(skipmissing(data), 0.75)
         iqr = q3 - q1
         return findall(x -> ismissing(x) || x < q1 - 1.5 * iqr || x > q3 + 1.5 * iqr, data)
-    elseif method == "moving_mean"
-        # If no window provided, set a default value
-        if window === nothing
-            window = length(data) ÷ 10
-        end
+    elseif method == "moving mean"
         outliers = Bool[]
         for i in 1:length(data)
             start_idx = max(1, i - window)
@@ -23,9 +23,23 @@ function detect_outliers(data, method, window)
             push!(outliers, ismissing(data[i]) || abs(data[i] - μ) > 3 * σ)
         end
         return findall(outliers)
+    elseif method == "move median"
+        if wondow === nothing
+            window = length(data) ÷ 10
+        end
+        outliers = Bool[]
+        for i in 1:length(data)
+            start_idx = max(1, i - window)
+            end_idx = min(length(data), i + window)
+            μ = median(skipmissing(data[start_idx:end_idx]))
+            σ = mad(skipmissing(data[start_idx:end_idx]))
+            push!(outliers, ismissing(data[i]) || abs(data[i] - μ) > 3 * σ)
+        end
+        return findall(outliers)
     else
         error("Invalid method: $method")
     end
+
 end
 
 
@@ -59,3 +73,4 @@ function interpolate_outliers(data, outlier_indices)
     end
     return data
 end
+
