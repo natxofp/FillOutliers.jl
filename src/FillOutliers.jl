@@ -9,10 +9,11 @@ include("functions.jl")
 
 function filloutliers(data, method, window=nothing)
 
-    data = replace(data, NaN => missing)
+
     dims = size(data)
     if length(dims) == 1 || dims[1] == 1 || dims[2] == 1
         data2 = convert(Vector{Float64}, vec(data))
+        data2 = replace(data2, NaN => missing)
         outlier_indices = detect_outliers(data2, method, window)
         interpolate_outliers(data2, outlier_indices)
         if size(data, 1) == 1
