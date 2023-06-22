@@ -10,8 +10,8 @@ Three different methods are implemented to find the outliers:
 - `median`: Outliers are those values that are 3 times the standard deviation calculated based on mad, `std`, away from the median.
 - `mean`: Outliers are those values that are 3 times the standard deviation, `std`, away from the mean.
 - `quartiles`: Outliers are those values that are outside the 25 and 75 quartile.
-- `move mean`: Outliers are those values that are 3 times the standard deviation, `std`, away from the moving mean. In that case the window size is `window` and needs to be provided as input.
-- `move median`: Outliers are those values that are 3 times the standard deviation calculated based on mad, `std`, away from the moving median. In that case the window size is `window` and needs to be provided as input.
+- `moving mean`: Outliers are those values that are 3 times the standard deviation, `std`, away from the moving mean. In that case the window size is `window` and needs to be provided as input.
+- `moving median`: Outliers are those values that are 3 times the standard deviation calculated based on mad, `std`, away from the moving median. In that case the window size is `window` and needs to be provided as input.
 
 The input data must be a a vector of numbers (1xn or nx1). The output is a vector of the same size as the input, converted to Float64. The input of matrices is not supported, but it can be done by applying the function to each column/row.  
 

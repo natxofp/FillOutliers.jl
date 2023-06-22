@@ -23,7 +23,7 @@ function detect_outliers(data, method, window)
             push!(outliers, ismissing(data[i]) || abs(data[i] - μ) > 3 * σ)
         end
         return findall(outliers)
-    elseif method == "move median"
+    elseif method == "moving median"
         if wondow === nothing
             window = length(data) ÷ 10
         end
