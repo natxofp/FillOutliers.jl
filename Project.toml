@@ -1,7 +1,7 @@
 name = "FillOutliers"
 uuid = "36498ab6-316f-4d40-82fe-0951719b46b4"
 authors = ["Ignasi Fernandez"]
-version = "0.4"
+version = "0.4.1"
 
 [deps]
 DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"

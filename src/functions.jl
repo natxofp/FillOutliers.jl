@@ -44,9 +44,26 @@ end
 
 
 function interpolate_outliers(data, outlier_indices)
-    sorted_outlier_indices = sort(outlier_indices)
+    sorted_outlier_indices = outlier_indices  # Assuming it's already sorted.
+    first_non_outlier_index = first(setdiff(1:length(data), sorted_outlier_indices))
+    last_non_outlier_index = last(setdiff(1:length(data), sorted_outlier_indices))
+
+    # Replace outliers at the beginning and end of the data
+    for i in 1:first_non_outlier_index-1
+        if i in sorted_outlier_indices
+            data[i] = data[first_non_outlier_index]
+        end
+    end
+
+    for i in last_non_outlier_index+1:length(data)
+        if i in sorted_outlier_indices
+            data[i] = data[last_non_outlier_index]
+        end
+    end
+
+    # Now proceed with the rest of the data
     for (index, i) in enumerate(sorted_outlier_indices)
-        # If the outlier is at the first or last position, we can't interpolate, so continue to the next iteration
+        # If the outlier is at the first or last position, continue to the next iteration
         if i == 1 || i == length(data)
             continue
         end
@@ -71,6 +88,8 @@ function interpolate_outliers(data, outlier_indices)
             end
         end
     end
-    return data
+    data_Float64 = convert(Vector{Float64}, data)
+    return data_Float64
 end
+
 

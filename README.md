@@ -15,6 +15,8 @@ Three different methods are implemented to find the outliers:
 
 The input data must be a a vector of numbers (1xn or nx1). The output is a vector of the same size as the input, converted to Float64. The input of matrices is not supported, but it can be done by applying the function to each column/row.  
 
+In this version the if teh input data starts or finishes with a series of outliers, the first and last values will be filled with the first and last non outlier value of the data vector.
+
 Example: 
 filloutliers(data, method, window)
     data = [1, 2, 100000, 4, 5, 7, 9, 15, NaN, 8, 9]
